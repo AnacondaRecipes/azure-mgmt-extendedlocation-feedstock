@@ -1,0 +1,52 @@
+{% set name = "azure-mgmt-extendedlocation" %}
+{% set version = "1.0.0b2" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.zip
+  sha256: 9a37c7df94fcd4943dee35601255a667c3f93305d5c5942ffd024a34b4b74fc0
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+
+requirements:
+  host:
+    - setuptools
+    - wheel
+    - python
+    - pip
+  run:
+    - python
+    - msrest>=0.6.21
+    - azure-common >=1.1,<2
+    - azure-mgmt-core >=1.2.0,<2.0.0
+
+tests:
+  imports:
+    - azure.mgmt.extendedlocation
+    - azure.mgmt.extendedlocation.aio
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/Azure/azure-sdk-for-python
+  summary: Microsoft Azure Extended Location Management Client Library for Python
+  license: MIT
+  license_file: LICENSE
+  license_family: MIT
+  description: |
+    This is the Microsoft Azure Extended Location Management Client Library.
+  doc_url: https://github.com/Azure/azure-sdk-for-python
+  dev_url: https://github.com/Azure/azure-sdk-for-python
+  
+
+extra:
+  recipe-maintainers:
+    - janjagusch
